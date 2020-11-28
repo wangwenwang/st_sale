@@ -58,35 +58,64 @@
 		</view> -->
 
 		<!-- 上传图片 -->
-		<!-- <view style="width: 100%; overflow: hidden;">
-			<view style="line-height: 88rpx; padding-left: 15rpx;">
-				<view style="float:left;color:red;">*</view> 商品宽图:file-list="fileList" 
+		<!-- 商品宽图 -->
+		<view style="width: 100%; overflow: hidden;">
+			<view style="line-height:88rpx;padding-left:28rpx;">商品宽图
 			</view>
 			<view style="padding-left: 28rpx;margin-top: -25rpx;font-size: 24rpx;color: #999999;">图片宽高为：1017*492px，图片大小小于1M</view>
-			<u-upload max-count="1" :form-data="type" ref="uUpload_1" :auto-upload="false" @on-success="on_success_imgSlide" style="margin-left: 18rpx;"
-			 :action="action"></u-upload>
-			<u-line color="#d5f5f5" margin="0 30rpx" style="margin-left:30rpx;width:calc(100% - 60rpx);overflow:hidden;" />
-		</view> -->
-		<view style="width: 100%;">
-			<view style="line-height: 88rpx; padding-left: 15rpx;">
-				<view style="float:left;color:red;">*</view> 商品轮播图
-			</view>
-			<view style="padding-left: 28rpx;margin-top: -25rpx;font-size: 24rpx;color: #999999;">图片宽高为：1125*1125px，图片大小小于1M</view>
 			<view style="margin-left: 18rpx;">
-				<u-upload @on-remove="on_remove" :file-list="imgSlide_preset_url" max-count="100" :form-data="type" :auto-upload="false"
-				 @on-success="on_success_imgSlide" :action="action" ref="upload_product_picture"></u-upload>
+				<u-upload @on-list-change="on_list_change" @on-remove="on_remove_imgWide" :file-list="imgWide_preset_url" max-count="1"
+				 :form-data="type" :auto-upload="false" @on-success="on_success_imgWide" :action="action" ref="upload_imgWide"></u-upload>
 			</view>
-			<view style="padding:0 30rpx; overflow: hidden;">
+			<view v-if="edit_item.id" style="color:#d43;margin-left:30rpx;font-size:20rpx;">点击图片放大预览</view>
+			<view style="padding:0 30rpx; overflow: hidden;margin-top: 20rpx;">
 				<u-line color="#d5f5f5" />
 			</view>
 		</view>
-		<!-- <view style="width: 100%;">
-			<view style="line-height: 88rpx; padding-left: 28rpx;">商品详情图<text style="font-size: 24rpx; color: #999999;">0/10</text></view>
+		<!-- 商品轮播图 -->
+		<view style="width: 100%;">
+			<view style="line-height: 88rpx; padding-left: 15rpx;">
+				<view style="float:left;color:red;">*</view>商品轮播图<text style="font-size:24rpx;color:#999999;margin-left:10rpx;">{{ refs_upload_imgSlide_count }}/10</text>
+			</view>
+			<view style="padding-left: 28rpx;margin-top: -25rpx;font-size: 24rpx;color: #999999;">图片宽高为：1125*1125px，图片大小小于1M</view>
+			<view style="margin-left: 18rpx;">
+				<u-upload @on-list-change="on_list_change" @on-remove="on_remove_imgSlide" :file-list="imgSlide_preset_url"
+				 max-count="10" :form-data="type" :auto-upload="false" @on-success="on_success_imgSlide" :action="action" ref="upload_imgSlide"></u-upload>
+			</view>
+			<view v-if="edit_item.id" style="color:#d43;margin-left:30rpx;font-size:20rpx;">点击图片放大预览</view>
+			<view style="padding:0 30rpx; overflow: hidden;margin-top: 20rpx;">
+				<u-line color="#d5f5f5" />
+			</view>
+		</view>
+		<!-- 商品详情图 -->
+		<view style="width: 100%;">
+			<view style="line-height: 88rpx; padding-left: 28rpx;">商品详情图<text style="font-size:24rpx;margin-left:10rpx;color:#999999;">{{ refs_upload_imgDetail_count }}/10</text></view>
 			<view style="padding-left: 28rpx;margin-top: -25rpx;font-size: 24rpx;color: #999999;">图片尺寸：宽度为1125px
 				高度小于1500px，图片大小小于1M</view>
-			<u-upload style="margin-left: 18rpx;" :action="action"></u-upload>
-			<u-line color="#d5f5f5" margin="0 30rpx" style="margin-left:30rpx;width:calc(100% - 60rpx);overflow:hidden;" />
-		</view> -->
+			<view style="margin-left: 18rpx;">
+				<u-upload @on-list-change="on_list_change" @on-remove="on_remove_imgDetail" :file-list="imgDetail_preset_url"
+				 max-count="10" :form-data="type" :auto-upload="false" @on-success="on_success_imgDetail" :action="action" ref="upload_imgDetail"></u-upload>
+			</view>
+			<view v-if="edit_item.id" style="color:#d43;margin-left:30rpx;font-size:20rpx;">点击图片放大预览</view>
+			<view style="padding:0 30rpx; overflow: hidden;margin-top: 20rpx;">
+				<u-line color="#d5f5f5" />
+			</view>
+		</view>
+		<!-- 商品白底图 -->
+		<view style="width: 100%; overflow: hidden;">
+			<view style="line-height:88rpx;padding-left:28rpx;">商品白底图<text style="margin-left:20rpx;background:linear-gradient(315deg,#ff8f13,#ff7708);color:white;font-size:15rpx;">上传可提升商品销量</text>
+			</view>
+			<view style="padding-left: 28rpx;margin-top: -25rpx;font-size: 24rpx;color: #999999;">图片宽高为：1125*1125px，图片大小小于1M</view>
+			<view style="padding-left: 28rpx;margin-top: 2rpx;font-size: 24rpx;color: #999999;">内容要求为：需正面居中展现一个主体商品，平铺或挂拍，无模特和背景，背景为255白色</view>
+			<view style="margin-left: 18rpx;">
+				<u-upload @on-list-change="on_list_change" @on-remove="on_remove_imgWhite" :file-list="imgWhite_preset_url"
+				 max-count="1" :form-data="type" :auto-upload="false" @on-success="on_success_imgWhite" :action="action" ref="upload_imgWhite"></u-upload>
+			</view>
+			<view v-if="edit_item.id" style="color:#d43;margin-left:30rpx;font-size:20rpx;">点击图片放大预览</view>
+			<view style="padding:0 30rpx; overflow: hidden;margin-top: 20rpx;">
+				<u-line color="#d5f5f5" />
+			</view>
+		</view>
 
 		<!-- 按钮 -->
 		<view style="margin-left:30rpx;margin-right:30rpx;margin-top:50rpx;">
@@ -116,32 +145,66 @@
 				type: {
 					"type": "goods"
 				},
-				item: {}, // 商品列表里的元素，用来做编辑功能
-				imgSlide_upload_complete_count: 0, // 产品轮播图数量，监听上传成功数量
-				imgSlide_url: 0, // 产品轮播图链接，多个图片用英文逗号分割
-				imgSlide_preset_url: [], // 产品轮播图链接，显示预置的图片
+				edit_item: {}, // 商品列表里的元素，用来做编辑功能
+				// 商品轮播图
+				refs_upload_imgSlide_count: 0, // 监听当前图片数量
+				imgSlide_upload_complete_count: 0, // 商品轮播图数量，监听上传成功数量
+				imgSlide_url: "", // 商品轮播图链接，多个图片用英文逗号分割
+				imgSlide_preset_url: [], // 商品轮播图链接，显示预置的图片
+				// 商品详情图
+				refs_upload_imgDetail_count: 0, // 监听当前图片数量
+				imgDetail_upload_complete_count: 0, // 商品详情数量，监听上传成功数量
+				imgDetail_url: "", // 商品详情链接，多个图片用英文逗号分割
+				imgDetail_preset_url: [], // 商品详情链接，显示预置的图片
+				// 商品宽图
+				imgWide_upload_complete_count: 0, // 商品宽图数量，监听上传成功数量
+				imgWide_url: "", // 商品宽图链接，多个图片用英文逗号分割
+				imgWide_preset_url: [], // 商品宽图链接，显示预置的图片
+				// 商品白底图
+				imgWhite_upload_complete_count: 0, // 商品白底图数量，监听上传成功数量
+				imgWhite_url: "", // 商品白底图链接，多个图片用英文逗号分割
+				imgWhite_preset_url: [], // 商品白底图链接，显示预置的图片
 			}
 		},
 		onLoad(option) {
 
-			if (option.item) {
-				this.item = JSON.parse(option.item)
+			if (option.edit_item) {
+				this.edit_item = JSON.parse(option.edit_item)
 			}
-			if (this.item.id) {
-				this.product_name = this.item.title
-				this.product_format = this.item.specs
-				this.purchase_price = this.item.priceIn
-				this.sale_price = this.item.priceOut
-				this.edit_date = this.timestampToTime(this.item.editTm)
-				this.is_frozen = this.item.isFrozen == 1 ? true : false
-				this.imgSlide_url = this.item.imgSlide
-				this.imgSlide_preset_url = this.deal_preset_url(this.item.imgSlide)
+			if (this.edit_item.id) {
+				this.product_name = this.edit_item.title
+				this.product_format = this.edit_item.specs
+				this.purchase_price = this.edit_item.priceIn
+				this.sale_price = this.edit_item.priceOut
+				this.edit_date = this.timestampToTime(this.edit_item.editTm)
+				this.is_frozen = this.edit_item.isFrozen == 1 ? true : false
+				// 轮播图
+				this.imgSlide_url = this.edit_item.imgSlide
+				this.imgSlide_preset_url = this.deal_preset_url(this.edit_item.imgSlide)
+				// 详情图
+				this.imgDetail_url = this.edit_item.imgDetail
+				this.imgDetail_preset_url = this.deal_preset_url(this.edit_item.imgDetail)
+				// 宽图
+				this.imgWide_url = this.edit_item.imgWide
+				this.imgWide_preset_url = this.deal_preset_url(this.edit_item.imgWide)
+				// 白底图
+				this.imgWhite_url = this.edit_item.imgWhite
+				this.imgWhite_preset_url = this.deal_preset_url(this.edit_item.imgWhite)
+				// 计算已加载图片数量
+				var that = this
+				setTimeout(function() {
+					that.refs_upload_imgSlide_count = that.$refs.upload_imgSlide.lists.length
+					that.refs_upload_imgDetail_count = that.$refs.upload_imgDetail.lists.length
+				}, 200)
 			}
 		},
 		methods: {
 
 			deal_preset_url(url) {
 
+				if (url == "") {
+					return []
+				}
 				var preset_url = []
 				var url_list = url.split(",")
 				for (var i = 0; i < url_list.length; i++) {
@@ -163,7 +226,13 @@
 				}
 				return ""
 			},
-			on_remove(index, lists) {
+			on_list_change() {
+
+				this.refs_upload_imgSlide_count = this.$refs.upload_imgSlide.lists.length
+				this.refs_upload_imgDetail_count = this.$refs.upload_imgDetail.lists.length
+			},
+			// 轮播图
+			on_remove_imgSlide(index, lists) {
 
 				this.imgSlide_url = ""
 				var preset_url = []
@@ -189,18 +258,156 @@
 				} else {
 					this.imgSlide_url = this.imgSlide_url + "," + data.imgurl
 				}
-				if (this.imgSlide_upload_complete_count == (this.$refs.upload_product_picture.lists.length - this.imgSlide_preset_url
+				if (this.imgSlide_upload_complete_count == (this.$refs.upload_imgSlide.lists.length - this.imgSlide_preset_url
+						.length)) {
+					console.log("轮播图上传完成")
+					if ((this.$refs.upload_imgDetail.lists.length - this.imgDetail_preset_url
+							.length) > 0) {
+						console.log("开始上传详情图片")
+						this.$refs.upload_imgDetail.upload()
+					} else {
+						console.log("没有详情图")
+						if ((this.$refs.upload_imgWide.lists.length - this.imgWide_preset_url
+								.length) > 0) {
+							console.log("开始上传宽图")
+							this.$refs.upload_imgWide.upload()
+						} else {
+							console.log("没有宽图")
+							if ((this.$refs.upload_imgWhite.lists.length - this.imgWhite_preset_url
+									.length) > 0) {
+								console.log("开始上传白底图")
+								this.$refs.upload_imgWhite.upload()
+							} else {
+								console.log("调用接口")
+								this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+							}
+						}
+					}
+				}
+			},
+			// 详情图
+			on_remove_imgDetail(index, lists) {
+
+				this.imgDetail_url = ""
+				var preset_url = []
+				for (var i = 0; i < lists.length; i++) {
+					var item = lists[i]
+					if (item.progress == 100) {
+						if (this.imgDetail_url == "") {
+							this.imgDetail_url = item.url
+						} else {
+							this.imgDetail_url = this.imgDetail_url + "," + item.url
+						}
+						preset_url.push(item)
+					}
+				}
+				this.imgDetail_preset_url = preset_url
+			},
+			on_success_imgDetail(data) {
+
+				this.imgDetail_upload_complete_count++
+				console.log("上传第" + this.imgDetail_upload_complete_count + "张")
+				if (this.imgDetail_url == "") {
+					this.imgDetail_url = data.imgurl
+				} else {
+					this.imgDetail_url = this.imgDetail_url + "," + data.imgurl
+				}
+				if (this.imgDetail_upload_complete_count == (this.$refs.upload_imgDetail.lists.length - this.imgDetail_preset_url
+						.length)) {
+					console.log("详情图上传完成")
+					if ((this.$refs.upload_imgWide.lists.length - this.imgWide_preset_url
+							.length) > 0) {
+						console.log("开始上传宽图")
+						this.$refs.upload_imgWide.upload()
+					} else {
+						console.log("没有宽图")
+						if ((this.$refs.upload_imgWhite.lists.length - this.imgWhite_preset_url
+								.length) > 0) {
+							console.log("开始上传白底图")
+							this.$refs.upload_imgWhite.upload()
+						} else {
+							console.log("调用接口")
+							this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+						}
+					}
+				}
+			},
+			// 宽图
+			on_remove_imgWide(index, lists) {
+
+				this.imgWide_url = ""
+				var preset_url = []
+				for (var i = 0; i < lists.length; i++) {
+					var item = lists[i]
+					if (item.progress == 100) {
+						if (this.imgWide_url == "") {
+							this.imgWide_url = item.url
+						} else {
+							this.imgWide_url = this.imgWide_url + "," + item.url
+						}
+						preset_url.push(item)
+					}
+				}
+				this.imgWide_preset_url = preset_url
+			},
+			on_success_imgWide(data) {
+
+				this.imgWide_upload_complete_count++
+				console.log("上传第" + this.imgWide_upload_complete_count + "张")
+				if (this.imgWide_url == "") {
+					this.imgWide_url = data.imgurl
+				} else {
+					this.imgWide_url = this.imgWide_url + "," + data.imgurl
+				}
+				if (this.imgWide_upload_complete_count == (this.$refs.upload_imgWide.lists.length - this.imgWide_preset_url
+						.length)) {
+					console.log("宽图上传完成")
+					if ((this.$refs.upload_imgWhite.lists.length - this.imgWhite_preset_url
+							.length) > 0) {
+						console.log("开始上传白底图")
+						this.$refs.upload_imgWhite.upload()
+					} else {
+						console.log("调用接口")
+						this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+					}
+				}
+			},
+			// 白底图
+			on_remove_imgWhite(index, lists) {
+
+				this.imgWhite_url = ""
+				var preset_url = []
+				for (var i = 0; i < lists.length; i++) {
+					var item = lists[i]
+					if (item.progress == 100) {
+						if (this.imgWhite_url == "") {
+							this.imgWhite_url = item.url
+						} else {
+							this.imgWhite_url = this.imgWhite_url + "," + item.url
+						}
+						preset_url.push(item)
+					}
+				}
+				this.imgWhite_preset_url = preset_url
+			},
+			on_success_imgWhite(data) {
+
+				this.imgWhite_upload_complete_count++
+				console.log("上传第" + this.imgWhite_upload_complete_count + "张")
+				if (this.imgWhite_url == "") {
+					this.imgWhite_url = data.imgurl
+				} else {
+					this.imgWhite_url = this.imgWhite_url + "," + data.imgurl
+				}
+				if (this.imgWhite_upload_complete_count == (this.$refs.upload_imgWhite.lists.length - this.imgWhite_preset_url
 						.length)) {
 					console.log("上传完成")
-					this.submit_t(this.imgSlide_url)
+					console.log("调用接口")
+					this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
 				}
 			},
 			submit_click() {
 
-				if (this.item.id && this.$refs.upload_product_picture.lists.length == this.imgSlide_preset_url.length) {
-					this.submit_t(this.imgSlide_url)
-					return
-				}
 				if (this.product_name.length == 0) {
 					this.$refs.uToast.show({
 						title: "请输入商品名称",
@@ -208,39 +415,73 @@
 					})
 					return
 				}
-				if (this.$refs.upload_product_picture.lists.length == 0) {
+				if (this.$refs.upload_imgSlide.lists.length == 0) {
 					this.$refs.uToast.show({
 						title: "请上传商品轮播图",
 						type: 'error'
 					})
 					return
 				}
-				this.$refs.upload_product_picture.upload()
+				// 没改或删除了图片
+				if (this.edit_item.id &&
+					this.$refs.upload_imgSlide.lists.length == this.imgSlide_preset_url.length &&
+					this.$refs.upload_imgDetail.lists.length == this.imgDetail_preset_url.length &&
+					this.$refs.upload_imgWide.lists.length == this.imgWide_preset_url.length &&
+					this.$refs.upload_imgWhite.lists.length == this.imgWhite_preset_url.length) {
+					this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+					return
+				}
+				// 增加轮播图
+				if (this.edit_item.id &&
+					this.$refs.upload_imgSlide.lists.length > this.imgSlide_preset_url.length) {
+					this.$refs.upload_imgSlide.upload()
+					return
+				}
+				// 增加详情图
+				if (this.edit_item.id &&
+					this.$refs.upload_imgDetail.lists.length > this.imgDetail_preset_url.length) {
+					this.$refs.upload_imgDetail.upload()
+					return
+				}
+				// 增加宽图
+				if (this.edit_item.id &&
+					this.$refs.upload_imgWide.lists.length > this.imgWide_preset_url.length) {
+					this.$refs.upload_imgWide.upload()
+					return
+				}
+				// 增加白底图
+				if (this.edit_item.id &&
+					this.$refs.upload_imgWhite.lists.length > this.imgWhite_preset_url.length) {
+					this.$refs.upload_imgWhite.upload()
+					return
+				}
+				this.$refs.upload_imgSlide.upload()
 			},
-			submit_t(image_url) {
+			submit_t(imgSlide, imgDetail, imgWide, imgWhite) {
 
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
 				var params = {
 					"businessId": u.id,
 					"title": this.product_name,
-					// "specs": this.product_format,
-					// "priceIn": this.purchase_price,
-					// "priceOut": this.sale_price,
-					// "editDate": this.deal_edit_date(),
-					// "isFrozen": this.is_frozen,
-					"imgSlide": image_url
+					"imgSlide": imgSlide,
+					"imgDetail": imgDetail,
+					"imgWide": imgWide,
+					"imgWhite": imgWhite,
 				}
 				if (this.product_format.length) params.specs = this.product_format
-				if (this.purchase_price.length) params.priceIn = this.purchase_price
-				if (this.sale_price.length) params.priceOut = this.sale_price
+				if (this.purchase_price) params.priceIn = parseInt(this.purchase_price)
+				if (this.sale_price) params.priceOut = parseInt(this.sale_price)
 				if (this.deal_edit_date().length) params.editDate = this.deal_edit_date()
 				if (this.is_frozen) params.isFrozen = this.is_frozen
+				// if (imgDetail.length) params.imgDetail = imgDetail
+				// if (imgWide.length) params.imgWide = imgWide
+				// if (imgWhite.length) params.imgWhite = imgWhite
 
 				var api = "ddGoods/addGoods"
-				if (this.item.id) {
+				if (this.edit_item.id) {
 					api = "ddGoods/editGoods"
-					params.goodsId = this.item.id
+					params.goodsId = this.edit_item.id
 				}
 				this.http_request({
 					url: api,
@@ -250,7 +491,7 @@
 					method: "POST",
 					success: function(res) {
 						var title = "添加成功"
-						if (that.item.id) {
+						if (that.edit_item.id) {
 							title = "更新成功"
 						}
 						that.$refs.uToast.show({
