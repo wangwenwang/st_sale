@@ -1,0 +1,56 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
+
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/login/protocol",
+			"style": {
+				"navigationBarTitleText": "用户协议"
+			}
+		},
+		{
+			"path": "pages/login/privacy",
+			"style": {
+				"navigationBarTitleText": "隐私政策"
+			}
+		},
+		{
+			"path": "pages/login/code",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/home/goods_manage",
+			"style": {
+				"navigationBarTitleText": "商品信息"
+			}
+		},
+		{
+			"path": "pages/home/goods_create",
+			"style": {
+				"navigationBarTitleText": "发布商品"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#EC662C",
+		"backgroundColor": "#FFFFFF"
+	}
+}

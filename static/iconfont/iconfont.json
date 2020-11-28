@@ -1,0 +1,93 @@
+{
+  "id": "2096435",
+  "name": "co_driver",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4848406",
+      "name": "默认图片",
+      "font_class": "morentupian",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "8486338",
+      "name": "商品管理",
+      "font_class": "shangpinguanli",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "9874503",
+      "name": "KHCFDC_客户投诉",
+      "font_class": "kehutousu",
+      "unicode": "e6d2",
+      "unicode_decimal": 59090
+    },
+    {
+      "icon_id": "4933869",
+      "name": "点",
+      "font_class": "dian",
+      "unicode": "ec1e",
+      "unicode_decimal": 60446
+    },
+    {
+      "icon_id": "6251346",
+      "name": "new",
+      "font_class": "new",
+      "unicode": "e716",
+      "unicode_decimal": 59158
+    },
+    {
+      "icon_id": "13700281",
+      "name": "加油",
+      "font_class": "ziyuan",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "7791034",
+      "name": "维修",
+      "font_class": "weixiu",
+      "unicode": "e7f2",
+      "unicode_decimal": 59378
+    },
+    {
+      "icon_id": "16526794",
+      "name": "充电桩",
+      "font_class": "chongdianzhuang",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "5082606",
+      "name": "向右",
+      "font_class": "xiangyou",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "478771",
+      "name": "救援",
+      "font_class": "jiuyuan",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "2678644",
+      "name": "违章",
+      "font_class": "weizhang",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "3766738",
+      "name": "爱生活-周边",
+      "font_class": "zhoubian",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    }
+  ]
+}
