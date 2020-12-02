@@ -133,7 +133,11 @@ Vue.prototype.http_request = function(param, backpage, backtype) {
 }
 // Vue.prototype.siteBaseUrl = 'http://192.168.20.92:8080/api/'
 Vue.prototype.siteBaseUrl = 'https://ddapi.kaidongyuan.com/api/'
+
+// 用户信息
 Vue.prototype.user_info_key = "user_info"
+// 商品分类列表
+Vue.prototype.product_type_list_key = "product_type_list"
 
 const app = new Vue({
 	...App,

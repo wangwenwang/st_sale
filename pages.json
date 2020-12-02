@@ -45,6 +45,13 @@
 			"style": {
 				"navigationBarTitleText": "发布商品"
 			}
+		}, {
+			"path": "pages/home/goods_type",
+			"style": {
+				"navigationBarTitleText": "商品分类",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"globalStyle": {

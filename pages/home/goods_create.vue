@@ -31,9 +31,9 @@
 		<view style="padding:0 30rpx;">
 			<u-line color="#d5f5f5" />
 		</view>
-		<view style="overflow: hidden;">
-			<u-field v-model="product_catego" placeholder-style="color: #c2c2c2" :border-bottom="false" label="商品分类" input-align="right"
-			 style="width: calc(100% - 50rpx);float: left;" placeholder="请选择"></u-field>
+		<view style="overflow: hidden;" @click="to_type_click()">
+			<u-field v-model="product_catego" :disabled="true" placeholder-style="color: #c2c2c2" :border-bottom="false" label="商品分类"
+			 input-align="right" style="width: calc(100% - 50rpx);float: left;" placeholder="请选择"></u-field>
 			<u-icon name="arrow-right" style="float: right;line-height: 88rpx;width: 50rpx;height: 88rpx;"></u-icon>
 		</view>
 		<view style="padding:0 30rpx;">
@@ -135,6 +135,9 @@
 				purchase_price: '', // 进货价
 				sale_price: '', // 销售价
 				edit_date: ' ', // 编辑时间
+				type1: 0, // 分类1
+				type2: 0, // 分类2
+				type3: 0, // 分类3
 				product_catego: '', // 商品分类
 				is_frozen: false, // 是否冻品
 				calendar_show: false, // 是否弹出日期控件
@@ -164,6 +167,9 @@
 				imgWhite_upload_complete_count: 0, // 商品白底图数量，监听上传成功数量
 				imgWhite_url: "", // 商品白底图链接，多个图片用英文逗号分割
 				imgWhite_preset_url: [], // 商品白底图链接，显示预置的图片
+				// 商品分类带参数回来时，路由跳转需要
+				data: {},
+				my_data: null,
 			}
 		},
 		onLoad(option) {
@@ -177,6 +183,9 @@
 				this.purchase_price = this.edit_item.priceIn
 				this.sale_price = this.edit_item.priceOut
 				this.edit_date = this.timestampToTime(this.edit_item.editTm)
+				this.type1 = this.edit_item.type1
+				this.type2 = this.edit_item.type2
+				this.type3 = this.edit_item.type3
 				this.is_frozen = this.edit_item.isFrozen == 1 ? true : false
 				// 轮播图
 				this.imgSlide_url = this.edit_item.imgSlide
@@ -197,9 +206,72 @@
 					that.refs_upload_imgDetail_count = that.$refs.upload_imgDetail.lists.length
 				}, 200)
 			}
+
+			// 请求全部分类列表
+			var that = this
+			var params = {
+				"type": "goodsType"
+			}
+			this.http_request({
+				url: "ddGoodsType/getGoodsTypes",
+				data: {
+					"params": JSON.stringify(params)
+				},
+				method: "POST",
+				success: function(res) {
+					uni.setStorageSync(that.product_type_list_key, res.list)
+					that.deal_product_type()
+				}
+			})
+		},
+		onShow() {
+
+			var pages = getCurrentPages()
+			var currPage = pages[pages.length - 1]
+			let obj = currPage.data.my_data
+			if (obj) {
+				this.type1 = obj.type1
+				this.type2 = obj.type2
+				this.type3 = obj.type3
+			}
+			this.deal_product_type()
 		},
 		methods: {
+			// 通过分类id显示分类名称
+			deal_product_type() {
 
+				if (this.type1 != 0) {
+					var a = this.get_type_name(this.type1)
+					var b = this.get_type_name(this.type2)
+					var c = this.get_type_name(this.type3)
+					this.product_catego = a + ">" + b + ">" + c
+				}
+			},
+			// 通过分类id查找分类名称
+			get_type_name(id) {
+
+				var type_list = uni.getStorageSync(this.product_type_list_key)
+				for (var i = 0; i < type_list.length; i++) {
+					var item = type_list[i]
+					if (item.id == id) {
+						return item.name
+						break
+					}
+				}
+			},
+			setData(e) {
+
+				this.product_catego = e.my_data.name
+				this.type1 = e.my_data.type1
+				this.type2 = e.my_data.type2
+				this.type3 = e.my_data.type3
+			},
+			to_type_click() {
+
+				uni.navigateTo({
+					url: '/pages/home/goods_type'
+				})
+			},
 			deal_preset_url(url) {
 
 				if (url == "") {
@@ -474,6 +546,9 @@
 				if (this.sale_price) params.priceOut = parseInt(this.sale_price)
 				if (this.deal_edit_date().length) params.editDate = this.deal_edit_date()
 				if (this.is_frozen) params.isFrozen = this.is_frozen
+				if (this.type1) params.type1 = this.type1
+				if (this.type2) params.type2 = this.type2
+				if (this.type3) params.type3 = this.type3
 				// if (imgDetail.length) params.imgDetail = imgDetail
 				// if (imgWide.length) params.imgWide = imgWide
 				// if (imgWhite.length) params.imgWhite = imgWhite
