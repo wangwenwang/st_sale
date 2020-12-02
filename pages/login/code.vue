@@ -22,6 +22,7 @@
 				second: 60,
 				show: false,
 				tel: 0,
+				is_leave_code_vue: false, // 解决使用真机时，使用手机一键输入验证码功能，会执行两次finish函数，导致重复跳转问题
 			};
 		},
 		onLoad(option) {
@@ -66,10 +67,13 @@
 					method: "POST",
 					hideLoading: true,
 					success: function(res) {
-						uni.setStorageSync(that.user_info_key, res)
-						uni.navigateTo({
-							url: '/pages/home/index'
-						})
+						if (that.is_leave_code_vue == false) {
+							that.is_leave_code_vue = true
+							uni.setStorageSync(that.user_info_key, res)
+							uni.navigateTo({
+								url: '/pages/home/index'
+							})
+						}
 					}
 				})
 			}
