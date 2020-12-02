@@ -12,6 +12,10 @@
 					<i class="iconfont iconshangpinguanli" style="color: #D9231F;"></i>
 					<view class="grid-text">商品管理</view>
 				</u-grid-item>
+				<u-grid-item @click="to_user_click">
+					<i class="iconfont iconyonghuguanli" style="color: #D9231F;"></i>
+					<view class="grid-text">用户管理</view>
+				</u-grid-item>
 			</u-grid>
 		</view>
 		<!-- 按钮 -->
@@ -44,6 +48,14 @@
 			}
 		},
 		methods: {
+			to_user_click() {
+
+				if (this.has_logined()) {
+					uni.navigateTo({
+						url: '/pages/user/user_manage'
+					})
+				}
+			},
 			to_goods_manage_click() {
 
 				if (this.has_logined()) {

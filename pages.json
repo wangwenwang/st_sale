@@ -52,6 +52,13 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/user/user_manage",
+			"style": {
+				"navigationBarTitleText": "用户列表",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"globalStyle": {
