@@ -102,7 +102,7 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
 				var params = {
-					"businessId": u.id,
+					"businessId": u.userId,
 					"status": status,
 					"index": 0,
 					"size": 999,

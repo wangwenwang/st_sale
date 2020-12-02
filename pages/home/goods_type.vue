@@ -2,7 +2,7 @@
 	<view>
 
 		<view class="top-d">
-			<view class="top-cell-content" :class="index == item.type ? '' : 'bottom_line'" v-for="(item , index) in top_list"
+			<view class="top-cell-content" :class="index == item.type - 1 ? '' : 'bottom_line'" v-for="(item , index) in top_list"
 			 :key="index" @click="top_click(item, index)">
 				{{ item.name }}
 			</view>
@@ -59,7 +59,7 @@
 			},
 			item_click(item) {
 
-				if (item.type == 2) {
+				if (item.type == 3) {
 					var type1 = this.top_list[0].id
 					var type2 = this.top_list[1].id
 					var type3 = item.id
@@ -80,7 +80,7 @@
 					return
 				}
 
-				if (item.type == 0) {
+				if (item.type == 1) {
 					this.top_list = []
 				}
 				this.top_list.push(item)
@@ -104,10 +104,10 @@
 						that.curr_list = res.list
 						if (res.list[0]) {
 
-							if (res.list[0].type == 1) {
+							if (res.list[0].type == 2) {
 								if (that.top_list.length == 2) {
 									if (is_top == false) {
-										that.top_list.splice(res.list[0].type - 1, 1)
+										that.top_list.splice(res.list[0].type - 2, 1)
 									}
 								} else {
 									if (is_top == false) {
@@ -117,11 +117,11 @@
 										})
 									}
 								}
-							} else if (res.list[0].type == 2) {
+							} else if (res.list[0].type == 3) {
 
 								if (that.top_list.length == 3 && is_top == false) {
 
-									that.top_list.splice(res.list[0].type - 1, 1)
+									that.top_list.splice(res.list[0].type - 2, 1)
 									that.top_list.push({
 										name: "三级分类",
 										id: that.top_list[that.top_list.length - 1].id
@@ -136,7 +136,7 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
 				var params = {
-					"name": "fresh"
+					"name": "dd_level1"
 				}
 				this.http_request({
 					url: 'ddGoodsType/getParentByName',

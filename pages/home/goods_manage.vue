@@ -18,7 +18,7 @@
 						<view v-for="(item , idx) in page_container_list[0]" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:120rpx;height:120rpx;">
-									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill"></u-image>
+									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
 								</view>
 								<view style="float:left;">
 									<view style="margin-left:15rpx;">{{ item.title }}</view>
@@ -49,7 +49,7 @@
 						<view v-for="(item , idx) in page_container_list[1]" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:120rpx;height:120rpx;">
-									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill"></u-image>
+									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
 								</view>
 								<view style="float:left;">
 									<view style="margin-left:15rpx;">{{ item.title }}</view>
@@ -60,7 +60,7 @@
 								<u-line color="#d5f5f5" />
 							</view>
 							<view style="overflow:hidden;">
-
+								<!-- <view @click="del_click_1(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">上架</view> -->
 							</view>
 							<view style="margin-top:30rpx;">
 								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
@@ -119,10 +119,26 @@
 			console.log("created")
 		},
 		methods: {
+			// 预览图片单张
+			preview_img(imgs_url) {
+
+				let imgs_array = this.imgsUrl_to_imgsArray(imgs_url)
+				uni.previewImage({
+					current: 0,
+					urls: imgs_array
+				})
+			},
+			// 多图片链接，取第一个图片
 			deal_img_url(url) {
 
 				var url_list = url.split(",")
 				return url_list.length ? url_list[0] : ""
+			},
+			// 多图片链接，用英文逗号分割，转成图片数组
+			imgsUrl_to_imgsArray(url) {
+
+				var url_list = url.split(",")
+				return url_list.length ? url_list : []
 			},
 			// scroll-view到底部加载更多
 			onreachBottom() {
@@ -162,7 +178,8 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
 				var params = {
-					"businessId": u.id,
+					"businessId": u.userId,
+					"deptId": u.deptId,
 					"status": status,
 					"index": 0,
 					"size": 999,
