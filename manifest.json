@@ -80,7 +80,7 @@
         "template" : "",
         "router" : {
             "mode" : "hash",
-            "base" : ""
+            "base" : "./"
         },
         "title" : "创销优选",
         "sdkConfigs" : {

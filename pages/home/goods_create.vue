@@ -205,6 +205,10 @@
 					that.refs_upload_imgSlide_count = that.$refs.upload_imgSlide.lists.length
 					that.refs_upload_imgDetail_count = that.$refs.upload_imgDetail.lists.length
 				}, 200)
+				// 修改标题
+				uni.setNavigationBarTitle({
+					title: "编辑商品"
+				})
 			}
 
 			// 请求全部分类列表
