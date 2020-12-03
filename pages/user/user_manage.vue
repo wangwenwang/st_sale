@@ -8,7 +8,7 @@
 
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , idx) in user_list" :key="item.id" @click="item_click()">
+						<view v-for="(item , idx) in user_list" :key="item.id" @click="item_click(item)">
 							<view style="overflow: hidden; margin: 30rpx 30rpx 20rpx 30rpx;">
 								用户名：{{ item.username }}
 							</view>
@@ -64,10 +64,10 @@
 			console.log("created")
 		},
 		methods: {
-			item_click() {
+			item_click(item) {
 
 				uni.navigateTo({
-					url: '/pages/home/goods_manage'
+					url: '/pages/home/goods_manage?businessId=' + item.userId
 				})
 			},
 			// scroll-view到底部加载更多

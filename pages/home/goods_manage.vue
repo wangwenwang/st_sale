@@ -26,7 +26,7 @@
 								<view style="float:left; width: calc(100% - 5.7rem);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
-									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm) }}</view>
+									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm ? item.lmfTm : item.crtTm) }}</view>
 								</view>
 							</view>
 							<view style="padding:0 30rpx;">
@@ -58,7 +58,7 @@
 								<view style="float:left; width: calc(100% - 5.7rem);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
-									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm) }}</view>
+									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm ? item.lmfTm : item.crtTm) }}</view>
 								</view>
 							</view>
 							<view style="padding:0 30rpx;">
@@ -102,6 +102,7 @@
 				}],
 				current: 0,
 				swiperCurrent: 0,
+				businessId: 0, // 用户id
 			}
 		},
 		watch: {
@@ -117,9 +118,12 @@
 			console.log("onShow")
 			this.request_list(this.swiperCurrent)
 		},
-		onLoad() {
+		onLoad(option) {
 
 			console.log("onLoad")
+			if (option.businessId) {
+				this.businessId = JSON.parse(option.businessId)
+			}
 		},
 		created() {
 
@@ -245,7 +249,7 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
 				var params = {
-					"businessId": u.userId,
+					"businessId": this.businessId,
 					"deptId": u.deptId,
 					"status": status,
 					"index": 0,
