@@ -10,7 +10,7 @@
 			<u-input v-if="login_type == 2" v-model="value" type="password" placeholder-style="font-size:35rpx;color:#C0C4CC;"
 			 placeholder="请输入密码" />
 			<u-line v-if="login_type == 2" color="#999999" />
-			<view v-if="login_type == 1" class="tips">未注册的手机号验证后自动创建创销优选账号</view>
+			<!-- <view v-if="login_type == 1" class="tips">未注册的手机号验证后自动创建创销优选账号</view> -->
 			<button @tap="login_click" :style="[inputStyle]" class="getCaptcha">获取短信验证码</button>
 			<view class="alternative">
 				<!-- <view class="password" ref='btn1' @tap="switch_click">{{ login_prompt }}</view> -->

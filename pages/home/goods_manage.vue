@@ -20,13 +20,13 @@
 					<view>
 						<view v-for="(item , idx) in page_container_list[0]" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
-								<view style="float:left;width:120rpx;height:120rpx;overflow: hidden;">
+								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
 								</view>
-								<view style="float:left; width: calc(100% - 3.8rem);overflow: hidden;">
+								<view style="float:left; width: calc(100% - 5.7rem);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
-									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">最后编辑时间：{{ deal_last_edit_time(item.lmfTm) }}</view>
+									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm) }}</view>
 								</view>
 							</view>
 							<view style="padding:0 30rpx;">
@@ -52,13 +52,13 @@
 					<view>
 						<view v-for="(item , idx) in page_container_list[1]" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
-								<view style="float:left;width:120rpx;height:120rpx;overflow: hidden;">
+								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
 								</view>
-								<view style="float:left; width: calc(100% - 3.8rem);overflow: hidden;">
+								<view style="float:left; width: calc(100% - 5.7rem);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
-									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">最后编辑时间：{{ deal_last_edit_time(item.lmfTm) }}</view>
+									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm) }}</view>
 								</view>
 							</view>
 							<view style="padding:0 30rpx;">
@@ -126,9 +126,8 @@
 			console.log("created")
 		},
 		methods: {
-			// 时间戳 --> 2020-12-03 11:22:19
+			// 13位时间戳 --> 2020-12-03 11:22:19
 			timeStamp(value) {
-				// 时间戳为10位需*1000，时间戳为13位的话不需乘1000
 				var date = new Date(value)
 				var year = date.getFullYear()
 				var month = ("0" + (date.getMonth() + 1)).slice(-2)
@@ -183,7 +182,7 @@
 					var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours()
 					var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes()
 					var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds()
-					result = Nyear + "-" + Nmonth + "-" + Ndate
+					result = Nyear + "-" + Nmonth + "-" + Ndate + " " + Nhour + ":" + Nminute + ":" + Nsecond
 				}
 				return result
 			},
