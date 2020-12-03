@@ -10,13 +10,13 @@
 					<view>
 						<view v-for="(item , idx) in user_list" :key="item.id" @click="item_click()">
 							<view style="overflow: hidden; margin: 30rpx 30rpx 20rpx 30rpx;">
-								用户名：王小明
+								用户名：{{ item.username }}
 							</view>
-							<view style="overflow: hidden; margin: 20rpx 30rpx 20rpx 30rpx;">
-								手机号：13726027405
-							</view>
+							<!-- <view style="overflow: hidden; margin: 20rpx 30rpx 20rpx 30rpx;">
+								手机号：{{ item.mobile }}
+							</view> -->
 							<view style="overflow: hidden; margin: 20rpx 30rpx 30rpx 30rpx;">
-								地　区：深圳西部
+								手机号：{{ item.mobile }}
 							</view>
 							<view style="margin-top:30rpx;">
 								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
@@ -102,20 +102,18 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
 				var params = {
-					"businessId": u.userId,
-					"status": status,
-					"index": 0,
-					"size": 999,
+					"uid": u.userId,
+					"deptId": u.deptId,
 				}
 				this.http_request({
-					url: 'ddGoods/getGoodsList',
+					url: 'buser/getBuserById',
 					data: {
 						"params": JSON.stringify(params)
 					},
 					method: "POST",
 					success: function(res) {
 
-						that.user_list = res.list
+						that.user_list = res.bUsers
 						that.$forceUpdate()
 					}
 				})

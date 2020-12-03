@@ -131,7 +131,7 @@ Vue.prototype.http_request = function(param, backpage, backtype) {
 		}
 	})
 }
-// Vue.prototype.siteBaseUrl = 'http://192.168.20.92:8080/api/'
+Vue.prototype.siteBaseUrl = 'http://192.168.20.92:8080/api/'
 Vue.prototype.siteBaseUrl = 'https://ddapi.kaidongyuan.com/api/'
 
 // 用户信息
