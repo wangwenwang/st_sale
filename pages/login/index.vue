@@ -87,7 +87,7 @@
 
 				var that = this
 				this.http_request({
-					url: 'sendSms?cellphone=' + this.tel + '&type=regist',
+					url: 'sendSms?cellphone=' + this.tel + '&type=login',
 					method: "POST",
 					success: function(res) {
 						uni.navigateTo({
