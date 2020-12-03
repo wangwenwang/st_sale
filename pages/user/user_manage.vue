@@ -8,7 +8,7 @@
 
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , idx) in user_list" :key="item.id" @click="item_click(item)">
+						<view v-for="(item , index) in user_list" :key="item.userId" @click="item_click(item)">
 							<view style="overflow: hidden; margin: 30rpx 30rpx 20rpx 30rpx;">
 								用户名：{{ item.username }}
 							</view>

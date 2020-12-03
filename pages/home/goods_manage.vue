@@ -18,7 +18,7 @@
 
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , idx) in page_container_list[0]" :key="item.id">
+						<view v-for="(item , index) in page_container_list[0]" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
@@ -50,7 +50,7 @@
 
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , idx) in page_container_list[1]" :key="item.id">
+						<view v-for="(item , index) in page_container_list[1]" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
