@@ -23,7 +23,7 @@
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
 								</view>
-								<view style="float:left; width: calc(100% - 5.7rem);overflow: hidden;">
+								<view style="float:left; width: calc(100% - 180rpx);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm ? item.lmfTm : item.crtTm) }}</view>
@@ -55,7 +55,7 @@
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
 								</view>
-								<view style="float:left; width: calc(100% - 5.7rem);overflow: hidden;">
+								<view style="float:left; width: calc(100% - 180rpx);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
 									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm ? item.lmfTm : item.crtTm) }}</view>
