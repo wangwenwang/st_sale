@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "9624818",
+      "name": "订单管理",
+      "font_class": "dingdan",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
       "icon_id": "8731845",
       "name": "用户管理",
       "font_class": "yonghuguanli",

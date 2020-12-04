@@ -4,7 +4,7 @@
 		<u-toast ref="uToast" />
 		<u-modal v-model="pull_off_shelves_show" @confirm="put_pull_shelves_click_confirm('下架')" :show-title="false"
 		 :show-cancel-button="true" content="确定下架此商品？"></u-modal>
-		<u-modal v-model="put_on_sale_show" @confirm="put_pull_shelves_click_confirm('上架')" :show-title="false"
+		<u-modal v-model="put_on_shelves_show" @confirm="put_pull_shelves_click_confirm('上架')" :show-title="false"
 		 :show-cancel-button="true" content="确定上架此商品？"></u-modal>
 		<!-- 顶部菜单栏 -->
 		<u-tabs-swiper active-color="#f29100" ref="tabs" :list="menu_list" :current="current" @change="tabsChange" :is-scroll="false"
@@ -13,9 +13,13 @@
 			<u-line color="#e2e2e2" />
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
+
 			<swiper-item class="swiper-item">
 				<scroll-view scroll-y style="height:100%;width:100%;" @scrolltolower="onreachBottom">
-
+					<view style="padding-top: 10rpx;margin-left: 15rpx;margin-right: 15rpx;">
+						<u-search :animation="true" :show-action="false" @change="search_change" placeholder="按商品名称搜索" input-align="center"
+						 v-model="keyword"></u-search>
+					</view>
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
 						<view v-for="(item , index) in page_container_list[0]" :key="item.id">
@@ -34,7 +38,7 @@
 							</view>
 							<view style="overflow:hidden;">
 								<view @click="edit_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">编辑</view>
-								<view @click="del_click_1(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">下架</view>
+								<view @click="pull_off_shelves_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">下架</view>
 							</view>
 							<view style="margin-top:30rpx;">
 								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
@@ -42,12 +46,16 @@
 						</view>
 						<view style="height:180rpx;"></view>
 					</view>
-
+					<!-- 与u-tabs-swiper无关，自己的内容结束 -->
 				</scroll-view>
 			</swiper-item>
+
 			<swiper-item class="swiper-item">
 				<scroll-view scroll-y style="height:100%;width:100%;" @scrolltolower="onreachBottom">
-
+					<view style="margin-top: 10rpx;margin-left: 15rpx;margin-right: 15rpx;">
+						<u-search :animation="true" :show-action="false" @change="search_change" placeholder="按商品名称搜索" input-align="center"
+						 v-model="keyword"></u-search>
+					</view>
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
 						<view v-for="(item , index) in page_container_list[1]" :key="item.id">
@@ -66,7 +74,7 @@
 							</view>
 							<view style="overflow:hidden;">
 								<view @click="edit_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">编辑</view>
-								<view @click="put_on_sale_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">上架</view>
+								<view @click="put_on_shelves_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">上架</view>
 							</view>
 							<view style="margin-top:30rpx;">
 								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
@@ -74,7 +82,7 @@
 						</view>
 						<view style="height:180rpx;"></view>
 					</view>
-
+					<!-- 与u-tabs-swiper无关，自己的内容结束 -->
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -93,7 +101,7 @@
 					[]
 				], // 页数列表
 				pull_off_shelves_show: false, // 是否上架
-				put_on_sale_show: false, // 是否下架
+				put_on_shelves_show: false, // 是否下架
 				operation_item: {}, // 操作的元素
 				menu_list: [{
 					name: '在售中'
@@ -103,6 +111,7 @@
 				current: 0,
 				swiperCurrent: 0,
 				businessId: 0, // 用户id
+				keyword: "", // 搜索关键词
 			}
 		},
 		watch: {
@@ -130,6 +139,11 @@
 			console.log("created")
 		},
 		methods: {
+			search_change(val) {
+
+				this.keyword = val
+				this.request_list()
+			},
 			// 13位时间戳 --> 2020-12-03 11:22:19
 			timeStamp(value) {
 				var date = new Date(value)
@@ -254,6 +268,7 @@
 					"status": status,
 					"index": 0,
 					"size": 999,
+					"title": this.keyword,
 				}
 				this.http_request({
 					url: 'ddGoods/getGoodsList',
@@ -281,15 +296,15 @@
 					url: '/pages/home/goods_create?edit_item=' + it
 				})
 			},
-			del_click_1(item) {
+			pull_off_shelves_click(item) {
 
 				this.operation_item = item
 				this.pull_off_shelves_show = true
 			},
-			put_on_sale_click(item) {
+			put_on_shelves_click(item) {
 
 				this.operation_item = item
-				this.put_on_sale_show = true
+				this.put_on_shelves_show = true
 			},
 			put_pull_shelves_click_confirm(tag) {
 
