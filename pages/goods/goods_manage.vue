@@ -286,14 +286,14 @@
 			add_click() {
 
 				uni.navigateTo({
-					url: '/pages/home/goods_create'
+					url: '/pages/goods/goods_create'
 				})
 			},
 			edit_click(item) {
 
 				var it = JSON.stringify(item)
 				uni.navigateTo({
-					url: '/pages/home/goods_create?edit_item=' + it
+					url: '/pages/goods/goods_create?edit_item=' + it
 				})
 			},
 			pull_off_shelves_click(item) {

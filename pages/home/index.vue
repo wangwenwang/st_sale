@@ -70,7 +70,7 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				if (this.has_logined()) {
 					uni.navigateTo({
-						url: '/pages/home/goods_manage?businessId=' + u.userId
+						url: '/pages/goods/goods_manage?businessId=' + u.userId
 					})
 				}
 			},

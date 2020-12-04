@@ -35,18 +35,18 @@
 			}
 		},
 		{
-			"path": "pages/home/goods_manage",
+			"path": "pages/goods/goods_manage",
 			"style": {
 				"navigationBarTitleText": "商品信息"
 			}
 		},
 		{
-			"path": "pages/home/goods_create",
+			"path": "pages/goods/goods_create",
 			"style": {
 				"navigationBarTitleText": "发布商品"
 			}
 		}, {
-			"path": "pages/home/goods_type",
+			"path": "pages/goods/goods_type",
 			"style": {
 				"navigationBarTitleText": "商品分类",
 				"enablePullDownRefresh": false

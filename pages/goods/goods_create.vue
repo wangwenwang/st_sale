@@ -273,7 +273,7 @@
 			to_type_click() {
 
 				uni.navigateTo({
-					url: '/pages/home/goods_type'
+					url: '/pages/goods/goods_type'
 				})
 			},
 			deal_preset_url(url) {

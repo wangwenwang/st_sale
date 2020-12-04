@@ -67,7 +67,7 @@
 			item_click(item) {
 
 				uni.navigateTo({
-					url: '/pages/home/goods_manage?businessId=' + item.userId
+					url: '/pages/goods/goods_manage?businessId=' + item.userId
 				})
 			},
 			// scroll-view到底部加载更多
@@ -121,7 +121,7 @@
 			add_click() {
 
 				uni.navigateTo({
-					url: '/pages/home/goods_create'
+					url: '/pages/goods/goods_create'
 				})
 			},
 			edit_click(item) {
