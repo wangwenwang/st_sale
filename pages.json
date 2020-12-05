@@ -37,7 +37,8 @@
 		{
 			"path": "pages/goods/goods_manage",
 			"style": {
-				"navigationBarTitleText": "商品信息"
+				"navigationBarTitleText": "商品信息",
+				"enablePullDownRefresh": true
 			}
 		},
 		{

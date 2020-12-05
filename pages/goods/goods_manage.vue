@@ -100,6 +100,11 @@
 				this.businessId = JSON.parse(option.businessId)
 			}
 		},
+		// 下拉监听事件
+		onPullDownRefresh() {
+
+			this.request_list()
+		},
 		created() {
 
 			console.log("created")
@@ -246,6 +251,7 @@
 
 						that.page_container_list[that.swiperCurrent] = res.list
 						that.$forceUpdate()
+						uni.stopPullDownRefresh()
 					}
 				})
 			},
