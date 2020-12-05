@@ -74,10 +74,13 @@
 				}, {
 					name: '已下架'
 				}],
-				current: 0,
-				swiperCurrent: 0,
+				// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
+				current: 0, // tabs组件的current值，表示当前活动的tab选项
+				swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
 				businessId: 0, // 用户id
 				keyword: "", // 搜索关键词
+				params_index: 0,
+				params_size: 999,
 			}
 		},
 		watch: {
@@ -198,14 +201,6 @@
 			},
 			// scroll-view到底部加载更多
 			onreachBottom() {
-				//滑到底部加载更多
-				// 此tab为空数据
-				// if (this.orderList[this.current].length) {
-				// 	this.loadStatus.splice(this.current, 1, "loading")
-				// 	setTimeout(() => {
-				// 		this.getOrderList(this.current);
-				// 	}, 1200);
-				// }
 			},
 			// 由于swiper的内部机制问题，快速切换swiper不会触发dx的连续变化，需要在结束时重置状态
 			// swiper滑动结束，分别设置tabs和swiper的状态
@@ -237,8 +232,8 @@
 					"businessId": this.businessId,
 					"deptId": u.deptId,
 					"status": status,
-					"index": 0,
-					"size": 999,
+					"index": this.params_index,
+					"size": this.params_size,
 					"title": this.keyword,
 				}
 				this.http_request({
