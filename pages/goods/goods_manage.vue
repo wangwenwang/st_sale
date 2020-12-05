@@ -14,7 +14,7 @@
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 
-			<swiper-item class="swiper-item">
+			<swiper-item class="swiper-item" v-for="(it, idx) in page_container_list" :key="idx">
 				<scroll-view scroll-y style="height:100%;width:100%;" @scrolltolower="onreachBottom">
 					<view style="padding-top: 10rpx;margin-left: 15rpx;margin-right: 15rpx;">
 						<u-search :animation="true" :show-action="false" @change="search_change" placeholder="按商品名称搜索" input-align="center"
@@ -22,7 +22,7 @@
 					</view>
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , index) in page_container_list[0]" :key="item.id">
+						<view v-for="(item , index) in it" :key="item.id">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
@@ -38,7 +38,8 @@
 							</view>
 							<view style="overflow:hidden;">
 								<view @click="edit_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">编辑</view>
-								<view @click="pull_off_shelves_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">下架</view>
+								<view v-if="idx == 0" @click="pull_off_shelves_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">下架</view>
+								<view v-if="idx == 1" @click="put_on_shelves_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">上架</view>
 							</view>
 							<view style="margin-top:30rpx;">
 								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
@@ -50,41 +51,6 @@
 				</scroll-view>
 			</swiper-item>
 
-			<swiper-item class="swiper-item">
-				<scroll-view scroll-y style="height:100%;width:100%;" @scrolltolower="onreachBottom">
-					<view style="margin-top: 10rpx;margin-left: 15rpx;margin-right: 15rpx;">
-						<u-search :animation="true" :show-action="false" @change="search_change" placeholder="按商品名称搜索" input-align="center"
-						 v-model="keyword"></u-search>
-					</view>
-					<!-- 与u-tabs-swiper无关，自己的内容 -->
-					<view>
-						<view v-for="(item , index) in page_container_list[1]" :key="item.id">
-							<view style="overflow: hidden; margin: 30rpx;">
-								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
-									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
-								</view>
-								<view style="float:left; width: calc(100% - 180rpx);overflow: hidden;">
-									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
-									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;">{{ item.specs }}</view>
-									<view style="padding-left:15rpx;padding-top:30rpx;color:#999999;font-size:25rpx;">编辑时间：{{ deal_last_edit_time(item.lmfTm ? item.lmfTm : item.crtTm) }}</view>
-								</view>
-							</view>
-							<view style="padding:0 30rpx;">
-								<u-line color="#d5f5f5" />
-							</view>
-							<view style="overflow:hidden;">
-								<view @click="edit_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">编辑</view>
-								<view @click="put_on_shelves_click(item)" style="width:150rpx;height:55rpx;background-color:white;float:right;line-height:55rpx;text-align:center;margin-top:15rpx;margin-right:30rpx;border-radius:10rpx;color:#555555;border:2rpx solid #f39e38;">上架</view>
-							</view>
-							<view style="margin-top:30rpx;">
-								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
-							</view>
-						</view>
-						<view style="height:180rpx;"></view>
-					</view>
-					<!-- 与u-tabs-swiper无关，自己的内容结束 -->
-				</scroll-view>
-			</swiper-item>
 		</swiper>
 
 		<!-- 按钮 -->
