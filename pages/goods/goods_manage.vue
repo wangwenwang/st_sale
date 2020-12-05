@@ -87,7 +87,7 @@
 				},
 				load_status: ['loadmore', 'loadmore'],
 				params_index: [0, 0],
-				params_size: 20,
+				params_size: 50,
 				allow_next_page: true, // 是否允许上拉刷新，避免多次触发上拉函数导致bug
 			}
 		},
