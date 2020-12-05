@@ -84,14 +84,14 @@
 			swiperCurrent(newVal, oldVal) {
 				if (oldVal != newVal) {
 					console.log("watch")
-					this.request_list(newVal)
+					this.request_list()
 				}
 			}
 		},
 		onShow() {
 
 			console.log("onShow")
-			this.request_list(this.swiperCurrent)
+			this.request_list()
 		},
 		onLoad(option) {
 
@@ -108,7 +108,7 @@
 			search_change(val) {
 
 				this.keyword = val
-				this.request_list(this.swiperCurrent)
+				this.request_list()
 			},
 			// 13位时间戳 --> 2020-12-03 11:22:19
 			timeStamp(value) {
@@ -220,10 +220,10 @@
 
 				this.swiperCurrent = index;
 			},
-			request_list(index) {
+			request_list() {
 
 				var status = 0
-				if (index == 1) {
+				if (this.swiperCurrent == 1) {
 					status = -2
 				}
 				const u = uni.getStorageSync(this.user_info_key).user
@@ -244,7 +244,7 @@
 					method: "POST",
 					success: function(res) {
 
-						that.page_container_list[index] = res.list
+						that.page_container_list[that.swiperCurrent] = res.list
 						that.$forceUpdate()
 					}
 				})
@@ -295,8 +295,7 @@
 					method: "POST",
 					success: function(res) {
 
-						that.request_list(0)
-						that.request_list(1)
+						that.request_list()
 						that.$refs.uToast.show({
 							title: tag + "成功",
 							type: 'success'
