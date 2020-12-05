@@ -22,7 +22,7 @@
 					</view>
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , index) in it" :key="item.id">
+						<view v-for="(item , index) in it" :key="index">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
 									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
@@ -45,6 +45,7 @@
 								<u-gap height="30" bg-color="#f5f5f5"></u-gap>
 							</view>
 						</view>
+						<u-loadmore :margin-top="20" :status="load_status[idx]" :load-text="loadText" />
 						<view style="height:180rpx;"></view>
 					</view>
 					<!-- 与u-tabs-swiper无关，自己的内容结束 -->
@@ -79,14 +80,22 @@
 				swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
 				businessId: 0, // 用户id
 				keyword: "", // 搜索关键词
-				params_index: 0,
-				params_size: 999,
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
+				load_status: ['loadmore', 'loadmore'],
+				params_index: [0, 0],
+				params_size: 20,
+				allow_next_page: true, // 是否允许上拉刷新，避免多次触发上拉函数导致bug
 			}
 		},
 		watch: {
 			swiperCurrent(newVal, oldVal) {
 				if (oldVal != newVal) {
 					console.log("watch")
+					this.params_index[this.swiperCurrent] = 0
 					this.request_list()
 				}
 			}
@@ -94,6 +103,7 @@
 		onShow() {
 
 			console.log("onShow")
+			this.params_index[this.swiperCurrent] = 0
 			this.request_list()
 		},
 		onLoad(option) {
@@ -106,6 +116,7 @@
 		// 下拉监听事件
 		onPullDownRefresh() {
 
+			this.params_index[this.swiperCurrent] = 0
 			this.request_list()
 		},
 		created() {
@@ -116,6 +127,7 @@
 			search_change(val) {
 
 				this.keyword = val
+				this.params_index[this.swiperCurrent] = 0
 				this.request_list()
 			},
 			// 13位时间戳 --> 2020-12-03 11:22:19
@@ -201,6 +213,19 @@
 			},
 			// scroll-view到底部加载更多
 			onreachBottom() {
+
+				// 避免上拉时多次触发此事件
+				if (this.allow_next_page) {
+					this.allow_next_page = false
+					if (this.page_container_list[this.current].length) {
+						this.load_status.splice(this.current, 1, "loading")
+						var that = this
+						setTimeout(() => {
+							that.params_index[that.swiperCurrent]++
+							that.request_list()
+						}, 1200)
+					}
+				}
 			},
 			// 由于swiper的内部机制问题，快速切换swiper不会触发dx的连续变化，需要在结束时重置状态
 			// swiper滑动结束，分别设置tabs和swiper的状态
@@ -232,7 +257,7 @@
 					"businessId": this.businessId,
 					"deptId": u.deptId,
 					"status": status,
-					"index": this.params_index,
+					"index": this.params_index[this.swiperCurrent],
 					"size": this.params_size,
 					"title": this.keyword,
 				}
@@ -242,11 +267,28 @@
 						"params": JSON.stringify(params)
 					},
 					method: "POST",
+					// 上拉加载时不显示小菊花
+					hideLoading: this.params_index[this.swiperCurrent],
 					success: function(res) {
 
-						that.page_container_list[that.swiperCurrent] = res.list
-						that.$forceUpdate()
-						uni.stopPullDownRefresh()
+						if (res.list.length) {
+							if (that.params_index[that.swiperCurrent] == 0) {
+								that.page_container_list[that.swiperCurrent] = res.list
+							} else {
+								for (var i = 0; i < res.list.length; i++) {
+									var item = res.list[i]
+									that.page_container_list[that.swiperCurrent].push(item)
+								}
+							}
+							that.$forceUpdate()
+							uni.stopPullDownRefresh()
+							that.load_status.splice(that.current, 1, "loadmore")
+							that.allow_next_page = true
+						}
+						if (!res.list.length || res.list.length < that.params_size) {
+							that.loadText.nomore = "共" + that.page_container_list[that.swiperCurrent].length + "个商品"
+							that.load_status.splice(that.current, 1, "nomore")
+						}
 					}
 				})
 			},
@@ -296,6 +338,7 @@
 					method: "POST",
 					success: function(res) {
 
+						that.params_index[that.swiperCurrent] = 0
 						that.request_list()
 						that.$refs.uToast.show({
 							title: tag + "成功",
