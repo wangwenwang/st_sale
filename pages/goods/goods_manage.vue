@@ -142,7 +142,7 @@
 			search_change(val) {
 
 				this.keyword = val
-				this.request_list()
+				this.request_list(this.swiperCurrent)
 			},
 			// 13位时间戳 --> 2020-12-03 11:22:19
 			timeStamp(value) {
