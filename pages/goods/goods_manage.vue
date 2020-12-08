@@ -86,7 +86,7 @@
 					nomore: '实在没有了'
 				},
 				load_status: ['loadmore', 'loadmore'],
-				params_index: [0, 0],
+				params_index: [1, 1],
 				params_size: 50,
 				allow_next_page: true, // 是否允许上拉刷新，避免多次触发上拉函数导致bug
 			}
@@ -95,7 +95,7 @@
 			swiperCurrent(newVal, oldVal) {
 				if (oldVal != newVal) {
 					console.log("watch")
-					this.params_index[this.swiperCurrent] = 0
+					this.params_index[this.swiperCurrent] = 1
 					this.request_list()
 				}
 			}
@@ -103,7 +103,7 @@
 		onShow() {
 
 			console.log("onShow")
-			this.params_index[this.swiperCurrent] = 0
+			this.params_index[this.swiperCurrent] = 1
 			this.request_list()
 		},
 		onLoad(option) {
@@ -116,7 +116,7 @@
 		// 下拉监听事件
 		onPullDownRefresh() {
 
-			this.params_index[this.swiperCurrent] = 0
+			this.params_index[this.swiperCurrent] = 1
 			this.request_list()
 		},
 		created() {
@@ -127,7 +127,7 @@
 			search_change(val) {
 
 				this.keyword = val
-				this.params_index[this.swiperCurrent] = 0
+				this.params_index[this.swiperCurrent] = 1
 				this.request_list()
 			},
 			// 13位时间戳 --> 2020-12-03 11:22:19
@@ -272,7 +272,7 @@
 					success: function(res) {
 
 						if (res.list.length) {
-							if (that.params_index[that.swiperCurrent] == 0) {
+							if (that.params_index[that.swiperCurrent] == 1) {
 								that.page_container_list[that.swiperCurrent] = res.list
 							} else {
 								for (var i = 0; i < res.list.length; i++) {
@@ -281,10 +281,10 @@
 								}
 							}
 							that.$forceUpdate()
-							uni.stopPullDownRefresh()
 							that.load_status.splice(that.current, 1, "loadmore")
 							that.allow_next_page = true
 						}
+						uni.stopPullDownRefresh()
 						if (!res.list.length || res.list.length < that.params_size) {
 							that.loadText.nomore = "共" + that.page_container_list[that.swiperCurrent].length + "个商品"
 							that.load_status.splice(that.current, 1, "nomore")
@@ -338,7 +338,7 @@
 					method: "POST",
 					success: function(res) {
 
-						that.params_index[that.swiperCurrent] = 0
+						that.params_index[that.swiperCurrent] = 1
 						that.request_list()
 						that.$refs.uToast.show({
 							title: tag + "成功",
