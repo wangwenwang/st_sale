@@ -268,7 +268,7 @@
 					},
 					method: "POST",
 					// 上拉加载时不显示小菊花
-					hideLoading: this.params_index[this.swiperCurrent],
+					hideLoading: this.params_index[this.swiperCurrent] == 1 ? false : true,
 					success: function(res) {
 
 						if (res.list.length) {
