@@ -24,7 +24,7 @@
 						<i class="iconfont iconyonghuguanli" style="color: #D9231F; font-size: 70rpx;"></i>
 						<view class="grid-text">用户管理</view>
 					</u-grid-item>
-					<u-grid-item bg-color="transparent" @click="to_user_click">
+					<u-grid-item bg-color="transparent" @click="to_order_click">
 						<i class="iconfont icondingdan" style="color: #D9231F; font-size: 70rpx;"></i>
 						<view class="grid-text">订单管理</view>
 					</u-grid-item>
@@ -57,6 +57,14 @@
 			this.mobile = uni.getStorageSync(this.user_info_key).user.mobile
 		},
 		methods: {
+			to_order_click() {
+
+				if (this.has_logined()) {
+					uni.navigateTo({
+						url: '/pages/order/order_list'
+					})
+				}
+			},
 			to_user_click() {
 
 				if (this.has_logined()) {

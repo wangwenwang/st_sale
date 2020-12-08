@@ -60,6 +60,24 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/order/order_list",
+			"style": {
+				"navigationBarTitleText": "订单列表",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/order/detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/order/deliver",
+			"style": {
+				"navigationBarTitleText": "交付",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {
