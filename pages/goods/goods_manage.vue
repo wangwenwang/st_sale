@@ -79,6 +79,7 @@
 				current: 0, // tabs组件的current值，表示当前活动的tab选项
 				swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
 				businessId: 0, // 用户id
+				deptId: 0, // 部门id
 				keyword: "", // 搜索关键词
 				loadText: {
 					loadmore: '轻轻上拉',
@@ -111,6 +112,9 @@
 			console.log("onLoad")
 			if (option.businessId) {
 				this.businessId = JSON.parse(option.businessId)
+			}
+			if (option.deptId) {
+				this.deptId = JSON.parse(option.deptId)
 			}
 		},
 		// 下拉监听事件
@@ -255,7 +259,7 @@
 				var that = this
 				var params = {
 					"businessId": this.businessId,
-					"deptId": u.deptId,
+					"deptId": this.deptId,
 					"status": status,
 					"index": this.params_index[this.swiperCurrent],
 					"size": this.params_size,
@@ -271,19 +275,21 @@
 					hideLoading: this.params_index[this.swiperCurrent] == 1 ? false : true,
 					success: function(res) {
 
-						if (res.list.length) {
-							if (that.params_index[that.swiperCurrent] == 1) {
+						if (that.params_index[that.swiperCurrent] == 1) {
+							if (res.list.length) {
 								that.page_container_list[that.swiperCurrent] = res.list
 							} else {
-								for (var i = 0; i < res.list.length; i++) {
-									var item = res.list[i]
-									that.page_container_list[that.swiperCurrent].push(item)
-								}
+								that.page_container_list[that.swiperCurrent] = []
 							}
-							that.$forceUpdate()
-							that.load_status.splice(that.current, 1, "loadmore")
-							that.allow_next_page = true
+						} else {
+							for (var i = 0; i < res.list.length; i++) {
+								var item = res.list[i]
+								that.page_container_list[that.swiperCurrent].push(item)
+							}
 						}
+						that.$forceUpdate()
+						that.load_status.splice(that.current, 1, "loadmore")
+						that.allow_next_page = true
 						uni.stopPullDownRefresh()
 						if (!res.list.length || res.list.length < that.params_size) {
 							that.loadText.nomore = "共" + that.page_container_list[that.swiperCurrent].length + "个商品"

@@ -44,7 +44,7 @@
 				exit_show: false,
 				login_logout_text: "登录", // 登录/退出登录
 				logo_url: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3057463025,217485477&fm=26&gp=0.jpg",
-				deptName: "", // 部门
+				deptName: "请登录", // 部门
 				mobile: "", // 手机号
 			}
 		},
@@ -53,8 +53,11 @@
 			if (this.is_login()) {
 				this.login_logout_text = "退出登录"
 			}
-			this.deptName = uni.getStorageSync(this.user_info_key).user.deptName
-			this.mobile = uni.getStorageSync(this.user_info_key).user.mobile
+			var u = uni.getStorageSync(this.user_info_key).user
+			if(u){
+				this.deptName = u.deptName
+				this.mobile = u.mobile
+			}
 		},
 		methods: {
 			to_order_click() {
@@ -78,7 +81,7 @@
 				const u = uni.getStorageSync(this.user_info_key).user
 				if (this.has_logined()) {
 					uni.navigateTo({
-						url: '/pages/goods/goods_manage?businessId=' + u.userId
+						url: '/pages/goods/goods_manage?businessId=' + u.userId + "&deptId=" + u.deptId
 					})
 				}
 			},

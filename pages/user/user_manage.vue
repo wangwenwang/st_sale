@@ -73,7 +73,7 @@
 			item_click(item) {
 
 				uni.navigateTo({
-					url: '/pages/goods/goods_manage?businessId=' + item.userId
+					url: '/pages/goods/goods_manage?businessId=' + item.userId + "&deptId=" + item.deptId
 				})
 			},
 			// scroll-view到底部加载更多
