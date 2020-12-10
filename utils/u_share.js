@@ -5,7 +5,7 @@ export default {
 			// 如果页面不设置share，就触发这个默认的分享
 			share: {
 				title: this.app_name,
-				path: getCurrentPages()[getCurrentPages().length - 1].route,
+				path: getCurrentPages()[getCurrentPages().length - 1] ? getCurrentPages()[getCurrentPages().length - 1].route : 'pages/home/index',
 				imageUrl: '',
 				desc: '',
 				content: ''
