@@ -18,6 +18,10 @@ Vue.prototype.u_date = u_date
 import u_picture from './utils/u_picture'
 Vue.prototype.u_picture = u_picture
 
+// 全部页面加分享功能
+import u_share from './utils/u_share'
+Vue.mixin(u_share)
+
 
 // 是否登录状态
 Vue.prototype.is_login = function() {
@@ -140,6 +144,8 @@ Vue.prototype.http_request = function(param, backpage, backtype) {
 Vue.prototype.siteBaseUrl = 'http://192.168.20.92:8080/api/'
 Vue.prototype.siteBaseUrl = 'https://ddapi.kaidongyuan.com/api/'
 
+// 应用名称
+Vue.prototype.app_name = "创销优选"
 // 用户信息
 Vue.prototype.user_info_key = "user_info"
 // 商品分类列表
