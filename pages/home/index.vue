@@ -20,14 +20,14 @@
 						<i class="iconfont iconshangpinguanli" style="color: #D9231F; font-size: 70rpx;"></i>
 						<view class="grid-text">商品管理</view>
 					</u-grid-item>
-					<u-grid-item @click="to_user_click">
+					<u-grid-item v-if="isCo == 0" @click="to_user_click">
 						<i class="iconfont iconyonghuguanli" style="color: #D9231F; font-size: 70rpx;"></i>
 						<view class="grid-text">用户管理</view>
 					</u-grid-item>
-					<u-grid-item bg-color="transparent" @click="to_order_click">
+					<!-- <u-grid-item bg-color="transparent" @click="to_order_click">
 						<i class="iconfont icondingdan" style="color: #D9231F; font-size: 70rpx;"></i>
 						<view class="grid-text">订单管理</view>
-					</u-grid-item>
+					</u-grid-item> -->
 				</u-grid>
 			</view>
 		</view>
@@ -46,6 +46,7 @@
 				logo_url: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3057463025,217485477&fm=26&gp=0.jpg",
 				deptName: "请登录", // 部门
 				mobile: "", // 手机号
+				isCo: -1, // 0 平台，1 经销商
 			}
 		},
 		onShow() {
@@ -58,6 +59,7 @@
 				this.deptName = u.deptName
 				this.mobile = u.mobile
 				this.logo_url = u.imageUrl ? u.imageUrl : this.logo_url
+				this.isCo = u.isCo
 			}
 		},
 		methods: {

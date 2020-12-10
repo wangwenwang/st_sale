@@ -18,9 +18,11 @@ Vue.prototype.u_date = u_date
 import u_picture from './utils/u_picture'
 Vue.prototype.u_picture = u_picture
 
+// #ifdef MP-WEIXIN
 // 全部页面加分享功能
 import u_share from './utils/u_share'
 Vue.mixin(u_share)
+// #endif
 
 
 // 是否登录状态
