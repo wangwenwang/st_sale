@@ -14,7 +14,7 @@
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 
-			<swiper-item class="swiper-item" v-for="(it, idx) in page_container_list" :key="idx">
+			<swiper-item class="swiper-item" v-for="(it, index) in page_container_list" :key="index">
 				<scroll-view scroll-y style="height:100%;width:100%;" @scrolltolower="onreachBottom">
 					<view style="padding-top: 10rpx;margin-left: 15rpx;margin-right: 15rpx;">
 						<u-search :animation="true" :show-action="false" @change="search_change" placeholder="按订单号搜索" input-align="center"

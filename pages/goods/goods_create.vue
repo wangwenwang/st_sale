@@ -182,7 +182,7 @@
 				this.product_format = this.edit_item.specs
 				this.purchase_price = this.edit_item.priceIn
 				this.sale_price = this.edit_item.priceOut
-				this.edit_date = this.timestampToTime(this.edit_item.editTm)
+				this.edit_date = this.u_date.y_m_d(this.edit_item.editTm)
 				this.type1 = this.edit_item.type1
 				this.type2 = this.edit_item.type2
 				this.type3 = this.edit_item.type3
@@ -289,18 +289,6 @@
 					preset_url.push(item)
 				}
 				return preset_url
-			},
-			// 时间戳转换成时间
-			timestampToTime(cjsj) {
-
-				if (cjsj) {
-					var date = new Date(cjsj)
-					var Y = date.getFullYear() + '-'
-					var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
-					var D = date.getDate()
-					return Y + M + D
-				}
-				return ""
 			},
 			on_list_change() {
 

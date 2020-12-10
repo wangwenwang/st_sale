@@ -15,6 +15,8 @@ App.mpType = 'app'
 // 引入工具类
 import u_date from './utils/u_date'
 Vue.prototype.u_date = u_date
+import u_picture from './utils/u_picture'
+Vue.prototype.u_picture = u_picture
 
 
 // 是否登录状态

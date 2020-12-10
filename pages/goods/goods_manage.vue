@@ -22,10 +22,10 @@
 					</view>
 					<!-- 与u-tabs-swiper无关，自己的内容 -->
 					<view>
-						<view v-for="(item , index) in it" :key="index">
+						<view v-for="(item, index) in it" :key="index">
 							<view style="overflow: hidden; margin: 30rpx;">
 								<view style="float:left;width:180rpx;height:180rpx;overflow: hidden;">
-									<u-image :src="deal_img_url(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img(item.imgSlide)"></u-image>
+									<u-image :src="u_picture.get_first_imgurl(item.imgSlide)" height="100%" mode="scaleToFill" @click="preview_img_click(item.imgSlide)"></u-image>
 								</view>
 								<view style="float:left; width: calc(100% - 180rpx);overflow: hidden;">
 									<view style="padding-left:15rpx; word-break:break-all;">{{ item.title }}</view>
@@ -131,32 +131,15 @@
 			console.log("created")
 		},
 		methods: {
+			preview_img_click(urls) {
+
+				this.u_picture.preview_img(urls)
+			},
 			search_change(val) {
 
 				this.keyword = val
 				this.params_index[this.swiperCurrent] = 1
 				this.request_list()
-			},
-			// 预览图片单张
-			preview_img(imgs_url) {
-
-				let imgs_array = this.imgsUrl_to_imgsArray(imgs_url)
-				uni.previewImage({
-					current: 0,
-					urls: imgs_array
-				})
-			},
-			// 多图片链接，取第一个图片
-			deal_img_url(url) {
-
-				var url_list = url.split(",")
-				return url_list.length ? url_list[0] : ""
-			},
-			// 多图片链接，用英文逗号分割，转成图片数组
-			imgsUrl_to_imgsArray(url) {
-
-				var url_list = url.split(",")
-				return url_list.length ? url_list : []
 			},
 			// scroll-view到底部加载更多
 			onreachBottom() {
