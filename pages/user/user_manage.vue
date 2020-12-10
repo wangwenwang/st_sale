@@ -73,7 +73,7 @@
 			item_click(item) {
 
 				uni.navigateTo({
-					url: '/pages/goods/goods_manage?businessId=' + item.userId + "&deptId=" + item.deptId
+					url: '/pages/goods/goods_manage?businessId=' + item.userId
 				})
 			},
 			// scroll-view到底部加载更多
@@ -105,7 +105,7 @@
 				var params = {
 					"uid": u.userId,
 					"deptId": u.deptId,
-					"title": this.keyword,
+					"search": this.keyword,
 				}
 				this.http_request({
 					url: 'buser/getBuserById',

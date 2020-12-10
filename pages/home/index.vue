@@ -54,9 +54,10 @@
 				this.login_logout_text = "退出登录"
 			}
 			var u = uni.getStorageSync(this.user_info_key).user
-			if(u){
+			if (u) {
 				this.deptName = u.deptName
 				this.mobile = u.mobile
+				this.logo_url = u.imageUrl ? u.imageUrl : this.logo_url
 			}
 		},
 		methods: {

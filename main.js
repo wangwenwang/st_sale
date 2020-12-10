@@ -12,6 +12,10 @@ Vue.config.productionTip = false
 
 App.mpType = 'app'
 
+// 引入工具类
+import u_date from './utils/u_date'
+Vue.prototype.u_date = u_date
+
 
 // 是否登录状态
 Vue.prototype.is_login = function() {
