@@ -220,12 +220,9 @@
 						}
 						if (!res.list.length || res.list.length < that.params_size) {
 							that.loadText.nomore = "共" + that.page_container_list[that.swiperCurrent].length + "个商品"
-							that.load_status.splice(that.current, 1, "nomore")
-							setTimeout(function() {
-								that.load_status.splice(that.current, 1, "nomore")
-							}, 500)
+							that.load_status.splice(that.swiperCurrent, 1, "nomore")
 						} else {
-							that.load_status.splice(that.current, 1, "loadmore")
+							that.load_status.splice(that.swiperCurrent, 1, "loadmore")
 							that.allow_next_page = true
 						}
 						uni.stopPullDownRefresh()
