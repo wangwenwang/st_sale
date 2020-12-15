@@ -232,9 +232,11 @@
 			},
 			add_click() {
 
-				uni.navigateTo({
-					url: '/pages/goods/goods_create'
-				})
+				if (this.has_logined()) {
+					uni.navigateTo({
+						url: '/pages/goods/goods_create'
+					})
+				}
 			},
 			edit_click(item) {
 
