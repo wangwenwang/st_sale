@@ -116,6 +116,20 @@
 				<u-line color="#d5f5f5" />
 			</view>
 		</view>
+		<!-- 检验检疫证明图 -->
+		<view style="width: 100%;">
+			<view style="line-height: 88rpx; padding-left: 28rpx;">检验检疫证明<text style="font-size:24rpx;margin-left:10rpx;color:#999999;">{{ refs_upload_imgProve_count }}/1</text></view>
+			<view style="padding-left: 28rpx;margin-top: -25rpx;font-size: 24rpx;color: #999999;">图片尺寸：宽度为1125px
+				高度小于1500px，图片大小小于1M</view>
+			<view style="margin-left: 18rpx;">
+				<u-upload @on-list-change="on_list_change" @on-remove="on_remove_imgProve" :file-list="imgProve_preset_url"
+				 max-count="1" :form-data="type" :auto-upload="false" @on-success="on_success_imgProve" :action="action" ref="upload_imgProve"></u-upload>
+			</view>
+			<view v-if="edit_item.id" style="color:#d43;margin-left:30rpx;font-size:20rpx;">点击图片放大预览</view>
+			<view style="padding:0 30rpx; overflow: hidden;margin-top: 20rpx;">
+				<u-line color="#d5f5f5" />
+			</view>
+		</view>
 
 		<!-- 按钮 -->
 		<view style="margin-left:30rpx;margin-right:30rpx;margin-top:50rpx;">
@@ -167,6 +181,11 @@
 				imgWhite_upload_complete_count: 0, // 商品白底图数量，监听上传成功数量
 				imgWhite_url: "", // 商品白底图链接，多个图片用英文逗号分割
 				imgWhite_preset_url: [], // 商品白底图链接，显示预置的图片
+				// 检验检疫证明
+				refs_upload_imgProve_count: 0, // 监听当前图片数量
+				imgProve_upload_complete_count: 0, // 检验检疫证明数量，监听上传成功数量
+				imgProve_url: "", // 检验检疫证明链接，多个图片用英文逗号分割
+				imgProve_preset_url: [], // 检验检疫证明链接，显示预置的图片
 				// 商品分类带参数回来时，路由跳转需要
 				data: {},
 				my_data: null,
@@ -199,11 +218,16 @@
 				// 白底图
 				this.imgWhite_url = this.edit_item.imgWhite
 				this.imgWhite_preset_url = this.deal_preset_url(this.edit_item.imgWhite)
+				// 检验检疫证明
+				this.imgProve_url = this.edit_item.imgProve
+				this.imgProve_preset_url = this.deal_preset_url(this.edit_item.imgProve)
+
 				// 计算已加载图片数量
 				var that = this
 				setTimeout(function() {
 					that.refs_upload_imgSlide_count = that.$refs.upload_imgSlide.lists.length
 					that.refs_upload_imgDetail_count = that.$refs.upload_imgDetail.lists.length
+					that.refs_upload_imgProve_count = that.$refs.upload_imgProve.lists.length
 				}, 200)
 				// 修改标题
 				uni.setNavigationBarTitle({
@@ -241,6 +265,9 @@
 			this.deal_product_type()
 		},
 		methods: {
+			upload_file() {
+				uni.uploadFile()
+			},
 			// 通过分类id显示分类名称
 			deal_product_type() {
 
@@ -294,6 +321,7 @@
 
 				this.refs_upload_imgSlide_count = this.$refs.upload_imgSlide.lists.length
 				this.refs_upload_imgDetail_count = this.$refs.upload_imgDetail.lists.length
+				this.refs_upload_imgProve_count = this.$refs.upload_imgProve.lists.length
 			},
 			// 轮播图
 			on_remove_imgSlide(index, lists) {
@@ -342,8 +370,14 @@
 								console.log("开始上传白底图")
 								this.$refs.upload_imgWhite.upload()
 							} else {
-								console.log("调用接口")
-								this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+								console.log("没有白底图")
+								if ((this.$refs.upload_imgProve.lists.length - this.imgProve_preset_url.length) > 0) {
+									console.log("开始上传检验检疫证明图")
+									this.$refs.upload_imgProve.upload()
+								} else {
+									console.log("调用接口")
+									this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url, this.imgProve_url)
+								}
 							}
 						}
 					}
@@ -390,8 +424,14 @@
 							console.log("开始上传白底图")
 							this.$refs.upload_imgWhite.upload()
 						} else {
-							console.log("调用接口")
-							this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+							console.log("没有白底图")
+							if ((this.$refs.upload_imgProve.lists.length - this.imgProve_preset_url.length) > 0) {
+								console.log("开始上传检验检疫证明图")
+								this.$refs.upload_imgProve.upload()
+							} else {
+								console.log("调用接口")
+								this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url, this.imgProve_url)
+							}
 						}
 					}
 				}
@@ -431,8 +471,14 @@
 						console.log("开始上传白底图")
 						this.$refs.upload_imgWhite.upload()
 					} else {
-						console.log("调用接口")
-						this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+						console.log("没有白底图")
+						if ((this.$refs.upload_imgProve.lists.length - this.imgProve_preset_url.length) > 0) {
+							console.log("开始上传检验检疫证明图")
+							this.$refs.upload_imgProve.upload()
+						} else {
+							console.log("调用接口")
+							this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url, this.imgProve_url)
+						}
 					}
 				}
 			},
@@ -465,9 +511,49 @@
 				}
 				if (this.imgWhite_upload_complete_count == (this.$refs.upload_imgWhite.lists.length - this.imgWhite_preset_url
 						.length)) {
+					console.log("白底图上传完成")
+					if ((this.$refs.upload_imgProve.lists.length - this.imgProve_preset_url
+							.length) > 0) {
+						console.log("开始上传检验检疫证明图")
+						this.$refs.upload_imgProve.upload()
+					} else {
+						console.log("调用接口")
+						this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url, this.imgProve_url)
+					}
+				}
+			},
+			// 检验检疫证明图
+			on_remove_imgProve(index, lists) {
+
+				this.imgProve_url = ""
+				var preset_url = []
+				for (var i = 0; i < lists.length; i++) {
+					var item = lists[i]
+					if (item.progress == 100) {
+						if (this.imgProve_url == "") {
+							this.imgProve_url = item.url
+						} else {
+							this.imgProve_url = this.imgProve_url + "," + item.url
+						}
+						preset_url.push(item)
+					}
+				}
+				this.imgProve_preset_url = preset_url
+			},
+			on_success_imgProve(data) {
+
+				this.imgProve_upload_complete_count++
+				console.log("上传第" + this.imgProve_upload_complete_count + "张")
+				if (this.imgProve_url == "") {
+					this.imgProve_url = data.imgurl
+				} else {
+					this.imgProve_url = this.imgProve_url + "," + data.imgurl
+				}
+				if (this.imgProve_upload_complete_count == (this.$refs.upload_imgProve.lists.length - this.imgProve_preset_url
+						.length)) {
 					console.log("上传完成")
 					console.log("调用接口")
-					this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+					this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url, this.imgProve_url)
 				}
 			},
 			submit_click() {
@@ -491,8 +577,9 @@
 					this.$refs.upload_imgSlide.lists.length == this.imgSlide_preset_url.length &&
 					this.$refs.upload_imgDetail.lists.length == this.imgDetail_preset_url.length &&
 					this.$refs.upload_imgWide.lists.length == this.imgWide_preset_url.length &&
-					this.$refs.upload_imgWhite.lists.length == this.imgWhite_preset_url.length) {
-					this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url)
+					this.$refs.upload_imgWhite.lists.length == this.imgWhite_preset_url.length &&
+					this.$refs.upload_imgProve.lists.length == this.imgProve_preset_url.length) {
+					this.submit_t(this.imgSlide_url, this.imgDetail_url, this.imgWide_url, this.imgWhite_url, this.imgProve_url)
 					return
 				}
 				// 增加轮播图
@@ -519,9 +606,15 @@
 					this.$refs.upload_imgWhite.upload()
 					return
 				}
+				// 增加检验检疫证明图
+				if (this.edit_item.id &&
+					this.$refs.upload_imgProve.lists.length > this.imgProve_preset_url.length) {
+					this.$refs.upload_imgProve.upload()
+					return
+				}
 				this.$refs.upload_imgSlide.upload()
 			},
-			submit_t(imgSlide, imgDetail, imgWide, imgWhite) {
+			submit_t(imgSlide, imgDetail, imgWide, imgWhite, imgProve) {
 
 				const u = uni.getStorageSync(this.user_info_key).user
 				var that = this
@@ -532,6 +625,7 @@
 					"imgDetail": imgDetail,
 					"imgWide": imgWide,
 					"imgWhite": imgWhite,
+					"imgProve": imgProve,
 				}
 				if (this.product_format.length) params.specs = this.product_format
 				if (this.purchase_price) params.priceIn = parseInt(this.purchase_price)
