@@ -628,8 +628,8 @@
 					"imgProve": imgProve,
 				}
 				if (this.product_format.length) params.specs = this.product_format
-				if (this.purchase_price) params.priceIn = parseInt(this.purchase_price)
-				if (this.sale_price) params.priceOut = parseInt(this.sale_price)
+				if (this.purchase_price) params.priceIn = parseFloat(this.purchase_price)
+				if (this.sale_price) params.priceOut = parseFloat(this.sale_price)
 				if (this.deal_edit_date().length) params.editDate = this.deal_edit_date()
 				if (this.is_frozen) params.isFrozen = this.is_frozen
 				if (this.type1) params.type1 = this.type1
